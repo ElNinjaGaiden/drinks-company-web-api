@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { asValue } from 'awilix';
 import servicesContainer from 'drinks-company-services-container';
 import router from '../router';
+import registerCustomDependencies from '../dependencies/customDependencies';
 
 const packageJson = require('../../package.json');
 
@@ -10,6 +11,9 @@ const { drinks: { clientName } } = packageJson;
 servicesContainer.register({
 	clientName: asValue(clientName),
 });
+
+// Register custom dependencies
+registerCustomDependencies(servicesContainer);
 
 if (process.env.NODE_ENV !== 'production') {
 	dotenv.config({ path: '.env' });
